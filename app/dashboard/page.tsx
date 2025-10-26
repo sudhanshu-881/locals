@@ -17,6 +17,10 @@ export default async function DashboardPage() {
 
   const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single()
 
+  if (!profile?.city || !profile?.state) {
+    redirect("/setup-location")
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <DashboardNav user={user} profile={profile} />
