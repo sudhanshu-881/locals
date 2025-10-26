@@ -50,7 +50,11 @@ export default function SignUpPage() {
         },
       })
       if (error) throw error
+
+      await new Promise((resolve) => setTimeout(resolve, 500))
+
       router.push("/auth/sign-up-success")
+      router.refresh()
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {

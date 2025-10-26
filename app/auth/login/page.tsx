@@ -30,7 +30,12 @@ export default function LoginPage() {
         password,
       })
       if (error) throw error
+
+      // This ensures cookies are properly set by the middleware
+      await new Promise((resolve) => setTimeout(resolve, 500))
+
       router.push("/dashboard")
+      router.refresh()
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {
