@@ -184,4 +184,3 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     return NextResponse.json({ error: "Failed to cancel request" }, { status: 500 })
   }
 }
-
