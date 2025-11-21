@@ -8,6 +8,7 @@ import { Star, MapPin, Phone, Mail } from "lucide-react"
 import Link from "next/link"
 import { RatingForm } from "@/components/ratings/rating-form"
 import { RatingDisplay } from "@/components/ratings/rating-display"
+import { RequestButton } from "@/components/requests/request-button"
 
 interface ProviderPageProps {
   params: Promise<{ id: string }>
@@ -91,9 +92,12 @@ export default async function ProviderPage({ params }: ProviderPageProps) {
                     </div>
                   )}
 
-                  <Link href={`/messages?to=${provider.id}`} className="w-full">
-                    <Button className="w-full">Send Message</Button>
-                  </Link>
+                  <div className="w-full space-y-2">
+                    <RequestButton providerId={provider.id} providerName={`${provider.first_name} ${provider.last_name}`} />
+                    <Link href={`/messages?to=${provider.id}`} className="w-full block">
+                      <Button variant="outline" className="w-full">Send Message</Button>
+                    </Link>
+                  </div>
                 </div>
               </CardContent>
             </Card>
