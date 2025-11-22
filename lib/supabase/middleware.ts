@@ -1,12 +1,10 @@
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  let supabaseResponse = NextResponse.next({
+    request,
+  })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,28 +12,48 @@ export async function updateSession(request: NextRequest) {
     {
       cookies: {
         get(name: string) {
-          return request.cookies.get(name)?.value;
+          return request.cookies.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
-          response.cookies.set({
+          request.cookies.set({
             name,
             value,
             ...options,
-          });
+          })
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          supabaseResponse.cookies.set({
+            name,
+            value,
+            ...options,
+          })
         },
         remove(name: string, options: CookieOptions) {
-          response.cookies.set({
+          request.cookies.set({
             name,
-            value: "",
+            value: '',
             ...options,
-          });
+          })
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          supabaseResponse.cookies.set({
+            name,
+            value: '',
+            ...options,
+          })
         },
       },
-    },
-  );
+    }
+  )
 
-  // refreshing the user's session
-  await supabase.auth.getUser();
+  // IMPORTANT: Avoid writing any logic between createServerClient and
+  // supabase.auth.getUser(). A simple await here would break the sync
+  // between server and client components.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  return response;
+  return supabaseResponse
 }
