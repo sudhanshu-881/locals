@@ -5,9 +5,10 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
+  title: "thelocals.co",
+  description: "Need a reliable electrician, plumber, AC technician, or installation helper? Locals connects you with friendly, skilled professionals right in your neighborhood",
+  generator: "thelocals.co",
+  keywords: "locals, electrician, plumber, AC technician, installation helper",
 };
 
 export default function RootLayout({
