@@ -1,10 +1,17 @@
 
 import { Analytics } from "@vercel/analytics/next";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { StoreInitializer } from "@/components/store-initializer";
 import ReactQueryProvider from "@/lib/providers/react-query-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata = {
   title: "thelocals.co",
@@ -19,13 +26,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`${poppins.variable}`}>
       <body className="font-sans antialiased">
-        <ReactQueryProvider>
-          <StoreInitializer />
-          {children}
-          <Analytics />
-        </ReactQueryProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReactQueryProvider>
+            <StoreInitializer />
+            {children}
+            <Analytics />
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
