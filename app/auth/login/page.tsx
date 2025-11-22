@@ -46,13 +46,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="flex min-h-svh w-full items-center justify-center bg-background p-6 md:p-10 fade-in-up">
       <div className="w-full max-w-sm">
-        <div className="flex flex-col gap-6">
-          <Card>
+        <Card className="w-full max-w-sm transform-gpu transition-all duration-300 ease-in-out hover:[transform:perspective(1000px)_rotateY(0deg)_rotateX(0deg)] [transform:perspective(1000px)_rotateY(-2deg)_rotateX(2deg)] border border-primary/20 glow">
             <CardHeader>
-              <CardTitle className="text-2xl">Welcome Back</CardTitle>
-              <CardDescription>Sign in to your Locals account</CardDescription>
+              <CardTitle className="text-2xl">Oh, hey!</CardTitle>
+              <CardDescription>Let's get you back in the game.</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleLogin}>
@@ -81,21 +80,20 @@ export default function LoginPage() {
                     />
                   </div>
                   {error && <p className="text-sm text-red-500">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Signing in..." : "Sign In"}
+                  <Button type="submit" className="w-full glow" disabled={isLoading}>
+                    {isLoading ? "Logging in..." : "Let's Go!"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  Don&apos;t have an account?{" "}
+                  New here?{" "}
                   <Link href="/auth/sign-up" className="underline underline-offset-4">
-                    Create one
+                    Sign up!
                   </Link>
                 </div>
               </form>
             </CardContent>
           </Card>
         </div>
-      </div>
     </div>
   )
 }

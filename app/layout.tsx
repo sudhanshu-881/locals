@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${poppins.variable}`}>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-background">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -36,7 +36,7 @@ export default function RootLayout({
         >
           <ReactQueryProvider>
             <StoreInitializer />
-            <main className="fade-in">
+            <main className="fade-in-up">
               {children}
             </main>
             <Analytics />
