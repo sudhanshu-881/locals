@@ -188,6 +188,12 @@ locals/
 
 ## 🚀 Deployment
 
+### Production Deployment
+
+**New to deployment?** Start with the [Production Setup Guide](./PRODUCTION_SETUP.md) for step-by-step instructions.
+
+**Quick Start:** See [DEPLOYMENT_QUICK_START.md](./DEPLOYMENT_QUICK_START.md) for a fast-track guide.
+
 ### Deploy to Vercel
 
 1. **Push to GitHub**
@@ -210,7 +216,10 @@ locals/
    - Wait for build to complete
    - Your app is live! 🎉
 
-**Detailed guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md)
+**Detailed guides:**
+- [Production Setup Guide](./PRODUCTION_SETUP.md) - Complete step-by-step guide
+- [Setup Instructions](./SETUP_INSTRUCTIONS.md) - Detailed instructions with screenshots guidance
+- [Deployment Guide](./DEPLOYMENT.md) - Original deployment documentation
 
 ### Post-Deployment
 
@@ -227,13 +236,23 @@ locals/
 
 ## 📚 Documentation
 
+### Getting Started
+- **[Production Setup Guide](./PRODUCTION_SETUP.md)** ⭐ - Complete production deployment guide
+- **[Setup Instructions](./SETUP_INSTRUCTIONS.md)** - Step-by-step setup with detailed instructions
+- **[Deployment Quick Start](./DEPLOYMENT_QUICK_START.md)** - Fast-track deployment guide
 - **[Quick Start Guide](./QUICK_START.md)** - Get started in 15 minutes
+
+### Setup & Configuration
 - **[Deployment Guide](./DEPLOYMENT.md)** - Complete deployment instructions
 - **[Supabase Setup](./SUPABASE_SETUP.md)** - Database setup guide
+- **[Environment Variables Template](./ENV_TEMPLATE.md)** - Environment variables reference
+
+### Project Documentation
 - **[Business Analysis](./BUSINESS_ANALYSIS.md)** - Product strategy and market analysis
 - **[Development Plan](./DEVELOPMENT_PLAN.md)** - Phased development roadmap
 - **[Progress Tracking](./LOCALS_1.0_PROGRESS.md)** - Current progress and achievements
 - **[Achievements](./ACHIEVEMENTS.md)** - Completed features summary
+- **[Deployment Checklist](./DEPLOYMENT_CHECKLIST.md)** - Deployment verification checklist
 
 ---
 
