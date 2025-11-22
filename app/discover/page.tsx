@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { fetchProviders } from "@/lib/queries/providers";
 import DiscoverClient from "@/components/discover/discover-client";
 
+export const dynamic = 'force-dynamic';
+
 const CATEGORIES = [
   "All", "Plumbing", "Electrical", "Cleaning", "Tutoring", "Fitness", "Photography", "Design",
 ];

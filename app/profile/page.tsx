@@ -8,18 +8,22 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+export const dynamic = 'force-dynamic';
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
   const { profile } = useProfileStore();
   const router = useRouter();
 
-  if (!user) {
-    router.push("/auth/login");
-    return null;
-  }
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
+  }, [user, router]);
 
-  if (!profile) {
+  if (!user || !profile) {
     return <div>Loading...</div>;
   }
 
