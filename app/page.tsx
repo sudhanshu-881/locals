@@ -28,7 +28,7 @@ export default function LandingPage() {
       <div
         className="absolute inset-0 z-[-1] bg-cover bg-center opacity-10"
         style={{
-          backgroundImage: "url('/background-2.png')",
+          backgroundImage: "url('/background.png')",
         }}
       />
       <div className="absolute inset-0 z-[-1] bg-gradient-to-b from-background via-transparent to-background" />
