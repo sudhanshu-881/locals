@@ -1,5 +1,4 @@
-import { createRouteHandlerClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
+import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
 interface RouteParams {
@@ -8,7 +7,7 @@ interface RouteParams {
 
 // GET /api/requests/[id] - Get request details
 export async function GET(request: Request, { params }: RouteParams) {
-  const supabase = createRouteHandlerClient({ cookies });
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -53,7 +52,7 @@ export async function GET(request: Request, { params }: RouteParams) {
 
 // PATCH /api/requests/[id] - Update request status
 export async function PATCH(request: Request, { params }: RouteParams) {
-  const supabase = createRouteHandlerClient({ cookies });
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -142,7 +141,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
 // DELETE /api/requests/[id] - Cancel/delete request (only seeker, only pending)
 export async function DELETE(request: Request, { params }: RouteParams) {
-  const supabase = createRouteHandlerClient({ cookies });
+  const supabase = await createClient();
 
   const {
     data: { user },

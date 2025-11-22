@@ -5,7 +5,13 @@ import { ArrowRight, Search, Zap, Handshake, CheckCircle } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen w-full text-foreground animated-gradient-bg">
+    <div className="min-h-screen w-full text-foreground">
+      <div
+        className="absolute inset-0 z-[-1] bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/background.png')",
+        }}
+      />
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 px-6 md:px-12 bg-background/80 backdrop-blur-sm">
         <Link href="/" className="text-2xl font-bold animate-text-gradient">
