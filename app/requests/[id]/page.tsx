@@ -7,10 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ArrowLeft, Clock, MapPin, DollarSign, CheckCircle, XCircle, Calendar } from "lucide-react"
+import { ArrowLeft, Clock, MapPin, DollarSign, CheckCircle, XCircle, Calendar, CreditCard } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
 import { format } from "date-fns"
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 interface ServiceRequest {
   id: string
@@ -68,6 +72,68 @@ const statusLabels: Record<string, string> = {
   cancelled: "Cancelled",
 }
 
+const CheckoutForm = ({ request, onPaymentSuccess }: { request: ServiceRequest, onPaymentSuccess: () => void }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsProcessing(true);
+
+    const response = await fetch('/api/payments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ requestId: request.id, amount: request.amount! * 100, currency: 'inr' }),
+    });
+
+    const { clientSecret, error: backendError } = await response.json();
+
+    if (backendError) {
+      toast.error(backendError);
+      setIsProcessing(false);
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement)!;
+
+    const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+      },
+    });
+
+    if (stripeError) {
+      toast.error(stripeError.message);
+      setIsProcessing(false);
+      return;
+    }
+
+    if (paymentIntent.status === 'succeeded') {
+      toast.success('Payment successful!');
+      onPaymentSuccess();
+    }
+
+    setIsProcessing(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <CardElement className="p-2 border rounded-md" />
+      <Button type="submit" disabled={!stripe || isProcessing} className="w-full">
+        {isProcessing ? 'Processing...' : `Pay ₹${request.amount}`}
+      </Button>
+    </form>
+  );
+};
+
 export default function RequestDetailPage() {
   const router = useRouter()
   const params = useParams()
@@ -77,6 +143,7 @@ export default function RequestDetailPage() {
   const [isUpdating, setIsUpdating] = useState(false)
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const [userRole, setUserRole] = useState<"seeker" | "provider" | null>(null)
+  const [showPayment, setShowPayment] = useState(false)
 
   useEffect(() => {
     const fetchRequest = async () => {
@@ -150,6 +217,13 @@ export default function RequestDetailPage() {
     }
   }
 
+  const handlePaymentSuccess = () => {
+    setShowPayment(false);
+    if(request) {
+      handleStatusUpdate('in_progress');
+    }
+  }
+
   const handleCancel = async () => {
     if (!request) return
     if (!confirm("Are you sure you want to cancel this request?")) return
@@ -210,7 +284,8 @@ export default function RequestDetailPage() {
     : "Unknown"
 
   const canAccept = userRole === "provider" && request.status === "pending"
-  const canStart = userRole === "provider" && request.status === "accepted"
+  const canPay = userRole === "seeker" && request.status === "accepted"
+  const canStart = userRole === "provider" && request.status === "in_progress"
   const canComplete = userRole === "provider" && request.status === "in_progress"
   const canCancel = userRole === "seeker" && request.status === "pending"
 
@@ -295,6 +370,20 @@ export default function RequestDetailPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {showPayment && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Complete Payment</CardTitle>
+                  <CardDescription>Enter your card details to pay for the service.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Elements stripe={stripePromise}>
+                    <CheckoutForm request={request} onPaymentSuccess={handlePaymentSuccess} />
+                  </Elements>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           <div className="space-y-6">
@@ -342,7 +431,16 @@ export default function RequestDetailPage() {
                     Accept Request
                   </Button>
                 )}
-
+                {canPay && (
+                  <Button
+                    onClick={() => setShowPayment(true)}
+                    disabled={isUpdating}
+                    className="w-full"
+                  >
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Pay Now
+                  </Button>
+                )}
                 {canStart && (
                   <Button
                     onClick={() => handleStatusUpdate("in_progress")}
@@ -378,7 +476,7 @@ export default function RequestDetailPage() {
                   </Button>
                 )}
 
-                {!canAccept && !canStart && !canComplete && !canCancel && (
+                {!canAccept && !canPay && !canStart && !canComplete && !canCancel && (
                   <p className="text-sm text-muted-foreground text-center">No actions available</p>
                 )}
               </CardContent>
@@ -389,4 +487,3 @@ export default function RequestDetailPage() {
     </div>
   )
 }
-
