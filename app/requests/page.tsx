@@ -83,9 +83,9 @@ export default function RequestsPage() {
 
       if (!user) return
 
-      const profile = await supabase.from("profiles").select("user_type").eq("id", user.id).single()
+      const { data: profile } = await supabase.from("profiles").select("user_type").eq("id", user.id).single()
 
-      const role = profile.data?.user_type === "service_seeker" ? "seeker" : "provider"
+      const role = profile?.user_type === "service_seeker" ? "seeker" : "provider"
       const statusParam = tab !== "all" ? tab : null
 
       const queryParams = new URLSearchParams({ role })
