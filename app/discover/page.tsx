@@ -10,7 +10,7 @@ const CATEGORIES = [
 ];
 
 export default async function DiscoverPage({ searchParams }: { searchParams: { searchQuery?: string, category?: string, city?: string } }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   const searchQuery = searchParams.searchQuery || "";
