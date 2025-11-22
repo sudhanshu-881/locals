@@ -98,14 +98,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
         return NextResponse.json({ error: "Can only accept pending requests" }, { status: 400 })
       }
 
-      // Cancellation rules: Only seeker can cancel, and only if pending (consistent with DELETE endpoint)
-      if (status === "cancelled") {
-        if (!isSeeker) {
-          return NextResponse.json({ error: "Only seeker can cancel requests" }, { status: 403 })
-        }
-        if (currentRequest.status !== "pending") {
-          return NextResponse.json({ error: "Can only cancel pending requests" }, { status: 400 })
-        }
+      if (status === "cancelled" && !isSeeker && currentRequest.status !== "pending") {
+        return NextResponse.json({ error: "Only seeker can cancel non-pending requests" }, { status: 400 })
       }
 
       // Only provider can accept, mark in_progress, or complete
