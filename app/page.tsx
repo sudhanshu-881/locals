@@ -1,9 +1,14 @@
 
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Zap, Handshake, CheckCircle } from "lucide-react";
+import { useAuthStore } from "@/lib/store/auth";
 
 export default function LandingPage() {
+  const { user } = useAuthStore();
+
   return (
     <div className="min-h-screen w-full text-foreground">
       <div
@@ -18,16 +23,26 @@ export default function LandingPage() {
           Locals
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/auth/login">
-            <Button variant="ghost" className="font-semibold hover:text-primary">
-              Log In
-            </Button>
-          </Link>
-          <Link href="/auth/sign-up">
-            <Button className="font-bold rounded-full btn-glow bg-primary text-primary-foreground hover:bg-primary/90">
-              Sign Up
-            </Button>
-          </Link>
+          {user ? (
+            <Link href="/dashboard">
+              <Button variant="ghost" className="font-semibold hover:text-primary">
+                Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth/login">
+                <Button variant="ghost" className="font-semibold hover:text-primary">
+                  Log In
+                </Button>
+              </Link>
+              <Link href="/auth/sign-up">
+                <Button className="font-bold rounded-full btn-glow bg-primary text-primary-foreground hover:bg-primary/90">
+                  Sign Up
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </header>
 

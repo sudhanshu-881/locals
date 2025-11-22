@@ -1,39 +1,32 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { RequestForm } from "./request-form"
-import { toast } from "sonner"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { RequestForm } from "./request-form";
 
 interface RequestButtonProps {
-  providerId: string
-  providerName: string
-  serviceId?: string
-  defaultAmount?: number
+  providerId: string;
+  providerName: string;
+  serviceId?: string;
+  defaultAmount?: number;
 }
 
 export function RequestButton({ providerId, providerName, serviceId, defaultAmount }: RequestButtonProps) {
-  const router = useRouter()
-  const supabase = createClient()
-  const [open, setOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSuccess = () => {
-    setOpen(false)
-    router.refresh()
-  }
+    setIsModalOpen(false);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full">Request Service</Button>
+        <Button className="w-full font-semibold btn-glow">Request Service</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-md mx-auto p-6 bg-card rounded-lg shadow-lg">
         <DialogHeader>
-          <DialogTitle>Create Service Request</DialogTitle>
-          <DialogDescription>Request a service from {providerName}</DialogDescription>
+          <DialogTitle className="text-2xl font-bold text-card-foreground">New Service Request</DialogTitle>
         </DialogHeader>
         <RequestForm
           providerId={providerId}
@@ -41,10 +34,9 @@ export function RequestButton({ providerId, providerName, serviceId, defaultAmou
           serviceId={serviceId}
           defaultAmount={defaultAmount}
           onSuccess={handleSuccess}
-          onCancel={() => setOpen(false)}
+          onCancel={() => setIsModalOpen(false)}
         />
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

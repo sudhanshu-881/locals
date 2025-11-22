@@ -1,16 +1,37 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Star } from "lucide-react"
 
-interface ProfileCardProps {
-  profile: any
-}
+"use client";
 
-export function ProfileCard({ profile }: ProfileCardProps) {
-  const initials = `${profile?.first_name?.[0] || ""}${profile?.last_name?.[0] || ""}`.toUpperCase()
+import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "@/lib/store/auth";
+import { fetchProfile } from "@/lib/queries/profile";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Star } from "lucide-react";
+
+export function ProfileCard() {
+  const { user } = useAuthStore();
+  const { data: profile, isLoading, isError, error } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: () => fetchProfile(user!.id),
+    enabled: !!user,
+  });
+
+  if (isLoading) {
+    return <div>Loading profile...</div>; // Or a skeleton loader
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!profile) {
+    return null;
+  }
+
+  const initials = `${profile?.first_name?.[0] || ""}${profile?.last_name?.[0] || ""}`.toUpperCase();
 
   return (
     <Card className="card-hover-lift overflow-hidden">
@@ -68,5 +89,5 @@ export function ProfileCard({ profile }: ProfileCardProps) {
         </Link>
       </CardContent>
     </Card>
-  )
+  );
 }

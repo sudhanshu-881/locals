@@ -1,22 +1,27 @@
-import { redirect } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
-import { ProfileForm } from "@/components/profile/profile-form"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
 
-export default async function ProfilePage() {
-  const supabase = await createClient()
+"use client";
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+import { useAuthStore } from "@/lib/store/auth";
+import { useProfileStore } from "@/lib/store/profile";
+import { ProfileForm } from "@/components/profile/profile-form";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+export default function ProfilePage() {
+  const { user } = useAuthStore();
+  const { profile } = useProfileStore();
+  const router = useRouter();
 
   if (!user) {
-    redirect("/auth/login")
+    router.push("/auth/login");
+    return null;
   }
 
-  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single()
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -33,5 +38,5 @@ export default async function ProfilePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

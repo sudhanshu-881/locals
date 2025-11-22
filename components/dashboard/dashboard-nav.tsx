@@ -1,8 +1,9 @@
-"use client"
 
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+"use client";
+
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,26 +11,30 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { LogOut, Settings, User } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { LogOut, Settings, User } from "lucide-react";
+import { useAuthStore } from "@/lib/store/auth";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProfile } from "@/lib/queries/profile";
 
-interface DashboardNavProps {
-  user: any
-  profile: any
-}
-
-export function DashboardNav({ user, profile }: DashboardNavProps) {
-  const router = useRouter()
+export function DashboardNav() {
+  const router = useRouter();
+  const { user } = useAuthStore();
+  const { data: profile } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: () => fetchProfile(user!.id),
+    enabled: !!user,
+  });
 
   const handleLogout = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push("/auth/login")
-  }
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/auth/login");
+  };
 
-  const initials = `${profile?.first_name?.[0] || ""}${profile?.last_name?.[0] || ""}`.toUpperCase()
+  const initials = `${profile?.first_name?.[0] || ""}${profile?.last_name?.[0] || ""}`.toUpperCase();
 
   return (
     <nav className="border-b bg-card">
@@ -78,5 +83,5 @@ export function DashboardNav({ user, profile }: DashboardNavProps) {
         </div>
       </div>
     </nav>
-  )
+  );
 }

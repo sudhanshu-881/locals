@@ -1,10 +1,13 @@
-'use client';
+
+"use client";
 
 import type React from "react";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { useMutation } from "@tanstack/react-query";
+import { useAuthStore } from "@/lib/store/auth";
+import { useLocationStore } from "@/lib/store/location";
+import { updateProfileLocation } from "@/lib/mutations/profile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,17 +21,28 @@ import { MapPin, Loader2 } from "lucide-react";
 
 export default function SetupLocationPage() {
   const router = useRouter();
-  const supabase = createClient();
-  const [loading, setLoading] = useState(false);
+  const { user } = useAuthStore();
+  const {
+    city,
+    state,
+    address,
+    setCity,
+    setState,
+    setAddress
+  } = useLocationStore();
   const [geoLoading, setGeoLoading] = useState(false);
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [address, setAddress] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    detectLocation();
-  }, []);
+  const mutation = useMutation({
+    mutationFn: updateProfileLocation,
+    onSuccess: () => {
+      router.push("/dashboard");
+    },
+    onError: (err) => {
+      setError("Failed to save location. Please try again.");
+      console.error("Error saving location:", err);
+    }
+  });
 
   const detectLocation = async () => {
     setGeoLoading(true);
@@ -45,7 +59,6 @@ export default function SetupLocationPage() {
         const { latitude, longitude } = position.coords;
 
         try {
-          // Using a more reliable geocoding service if possible
           const response = await fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
           );
@@ -53,7 +66,7 @@ export default function SetupLocationPage() {
 
           setCity(data.city || "");
           setState(data.principalSubdivision || "");
-          setAddress(data.localityInfo.administrative.map(a => a.name).join(', ') || "");
+          setAddress(data.localityInfo.administrative.map((a: any) => a.name).join(", ") || "");
         } catch (err) {
           console.error("Geocoding error:", err);
           setError("Could not determine your location. Please enter manually.");
@@ -78,37 +91,12 @@ export default function SetupLocationPage() {
       return;
     }
 
-    setLoading(true);
-
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        router.push("/auth/login");
-        return;
-      }
-
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({
-          city: city.trim(),
-          state: state.trim(),
-          address: address.trim(),
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", user.id);
-
-      if (updateError) throw updateError;
-
-      router.push("/dashboard");
-    } catch (err) {
-      console.error("Error saving location:", err);
-      setError("Failed to save location. Please try again.");
-    } finally {
-      setLoading(false);
+    if (!user) {
+      router.push("/auth/login");
+      return;
     }
+
+    mutation.mutate({ city, state, address, userId: user.id });
   };
 
   return (
@@ -138,7 +126,7 @@ export default function SetupLocationPage() {
                 placeholder="Enter your city"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                disabled={loading || geoLoading}
+                disabled={mutation.isPending || geoLoading}
                 className="border-primary/20 focus:border-primary"
               />
             </div>
@@ -149,7 +137,7 @@ export default function SetupLocationPage() {
                 placeholder="Enter your state"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                disabled={loading || geoLoading}
+                disabled={mutation.isPending || geoLoading}
                 className="border-primary/20 focus:border-primary"
               />
             </div>
@@ -160,7 +148,7 @@ export default function SetupLocationPage() {
                 placeholder="Enter your address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                disabled={loading || geoLoading}
+                disabled={mutation.isPending || geoLoading}
                 className="border-primary/20 focus:border-primary"
               />
             </div>
@@ -168,10 +156,10 @@ export default function SetupLocationPage() {
             <div className="space-y-3 pt-2">
               <Button
                 type="submit"
-                disabled={loading || geoLoading}
+                disabled={mutation.isPending || geoLoading}
                 className="w-full bg-gradient-to-r from-primary to-secondary transition-all duration-300 hover:shadow-lg"
               >
-                {loading ? (
+                {mutation.isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Saving...
@@ -185,7 +173,7 @@ export default function SetupLocationPage() {
                 type="button"
                 variant="outline"
                 onClick={detectLocation}
-                disabled={loading || geoLoading}
+                disabled={mutation.isPending || geoLoading}
                 className="w-full border-primary/20 bg-transparent hover:bg-primary/5"
               >
                 {geoLoading ? (

@@ -1,60 +1,43 @@
-"use client"
 
-import type React from "react"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Star } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Star } from "lucide-react";
+import { useSubmitRating } from "@/lib/hooks/useSubmitRating";
 
 interface RatingFormProps {
-  rateeId: string
-  onSuccess?: () => void
+  rateeId: string;
 }
 
-export function RatingForm({ rateeId, onSuccess }: RatingFormProps) {
-  const [rating, setRating] = useState(0)
-  const [review, setReview] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
+export function RatingForm({ rateeId }: RatingFormProps) {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+  const mutation = useSubmitRating(rateeId);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (rating === 0) {
-      setError("Please select a rating")
-      return
+      return;
     }
 
-    setIsLoading(true)
-    setError(null)
-    setSuccess(false)
+    const formData = new FormData();
+    formData.append("rateeId", rateeId);
+    formData.append("rating", rating.toString());
+    formData.append("review", review);
 
-    try {
-      const response = await fetch("/api/ratings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ratee_id: rateeId,
-          rating,
-          review: review || null,
-        }),
-      })
-
-      if (!response.ok) throw new Error("Failed to submit rating")
-
-      setSuccess(true)
-      setRating(0)
-      setReview("")
-      onSuccess?.()
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred")
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    mutation.mutate(formData, {
+      onSuccess: (data) => {
+        if (!data?.error) {
+          setRating(0);
+          setReview("");
+        }
+      },
+    });
+  };
 
   return (
     <Card>
@@ -94,14 +77,11 @@ export function RatingForm({ rateeId, onSuccess }: RatingFormProps) {
             />
           </div>
 
-          {error && <p className="text-sm text-red-500">{error}</p>}
-          {success && <p className="text-sm text-green-500">Thank you for your review!</p>}
-
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Submitting..." : "Submit Review"}
+          <Button type="submit" className="w-full" disabled={mutation.isPending}>
+            {mutation.isPending ? "Submitting..." : "Submit Review"}
           </Button>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }

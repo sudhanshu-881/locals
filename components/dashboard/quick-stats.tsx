@@ -1,11 +1,32 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MessageSquare, Star, Briefcase } from "lucide-react"
 
-interface QuickStatsProps {
-  profile: any
-}
+"use client";
 
-export function QuickStats({ profile }: QuickStatsProps) {
+import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "@/lib/store/auth";
+import { fetchProfile } from "@/lib/queries/profile";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MessageSquare, Star, Briefcase } from "lucide-react";
+
+export function QuickStats() {
+  const { user } = useAuthStore();
+  const { data: profile, isLoading, isError, error } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: () => fetchProfile(user!.id),
+    enabled: !!user,
+  });
+
+  if (isLoading) {
+    return <div>Loading stats...</div>; // Or a skeleton loader
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!profile) {
+    return null;
+  }
+
   return (
     <div className="space-y-6">
       <Card>
@@ -56,5 +77,5 @@ export function QuickStats({ profile }: QuickStatsProps) {
         </Card>
       </div>
     </div>
-  )
+  );
 }
