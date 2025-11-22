@@ -24,7 +24,7 @@ export function AdminNav() {
         </Link>
         <div className="flex items-center gap-4">
           <Link href="/dashboard">
-            <Button variant="ghost">Back to App</Button>
+            <Button variant="ghost">Back to APP</Button>
           </Link>
           <Button onClick={handleLogout} variant="outline" className="gap-2 bg-transparent">
             <LogOut className="h-4 w-4" />
