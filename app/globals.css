@@ -5,77 +5,57 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Gen Z-inspired vibrant, aesthetic, and minimalistic theme */
-  --background: oklch(0.99 0.005 240); /* Very light, almost white with a hint of cool gray */
-  --foreground: oklch(0.08 0.01 240); /* Near-black for high contrast */
-  --card: oklch(1 0 0); /* Pure white for cards */
-  --card-foreground: oklch(0.08 0.01 240);
+  /* India-inspired professional & vibrant theme */
+  --background: oklch(0.98 0.005 60); /* Soft, warm off-white */
+  --foreground: oklch(0.1 0.01 240);  /* Deep, near-black blue */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1 0.01 240);
 
-  /* Primary: Electric Violet - bold, energetic, and modern */
-  --primary: oklch(0.6 0.3 280);
-  --primary-foreground: oklch(0.99 0.005 240);
+  /* Primary: Deep Blue (Ashoka Chakra) - professional and strong */
+  --primary: oklch(0.45 0.2 260);
+  --primary-foreground: oklch(0.98 0.005 60);
 
-  /* Secondary: Bright Lime Green - vibrant and playful */
-  --secondary: oklch(0.8 0.25 145);
-  --secondary-foreground: oklch(0.08 0.01 240);
+  /* Secondary: Fresh Green (Flag) - vibrant and lively */
+  --secondary: oklch(0.6 0.22 145);
+  --secondary-foreground: oklch(0.05 0.01 145);
 
-  /* Accent: Hot Pink - a high-energy pop for CTAs */
-  --accent: oklch(0.7 0.3 330);
-  --accent-foreground: oklch(0.08 0.01 240);
+  /* Accent: Saffron/Orange (Flag) - energetic and inviting */
+  --accent: oklch(0.7 0.25 50);
+  --accent-foreground: oklch(0.05 0.01 50);
 
-  --muted: oklch(0.95 0.005 240);
+  --muted: oklch(0.94 0.01 60);
   --muted-foreground: oklch(0.4 0.01 240);
-  --destructive: oklch(0.65 0.28 25);
-  --destructive-foreground: oklch(0.99 0.005 240);
-  --border: oklch(0.9 0.01 240);
-  --input: oklch(0.97 0.005 240);
-  --ring: oklch(0.6 0.3 280 / 0.5);
+  --destructive: oklch(0.6 0.25 25);
+  --destructive-foreground: oklch(0.98 0.005 60);
+  --border: oklch(0.88 0.01 60);
+  --input: oklch(0.96 0.005 60);
+  --ring: oklch(0.45 0.2 260 / 0.6);
 
-  /* Chart colors - vibrant and distinct */
-  --chart-1: oklch(0.6 0.3 280);   /* Electric Violet */
-  --chart-2: oklch(0.8 0.25 145);   /* Bright Lime Green */
-  --chart-3: oklch(0.7 0.3 330);   /* Hot Pink */
-  --chart-4: oklch(0.75 0.28 210);  /* Sky Blue */
-  --chart-5: oklch(0.8 0.25 50);    /* Bright Orange */
-
-  --radius: 0.8rem; /* Slightly more rounded corners for a softer feel */
+  --radius: 0.8rem;
 }
 
 .dark {
-  /* Dark mode: Deep space with vibrant highlights */
-  --background: oklch(0.05 0.01 260); /* Deep, dark purple-blue */
-  --foreground: oklch(0.98 0.005 260); /* Light, almost white */
-  --card: oklch(0.1 0.015 260);
-  --card-foreground: oklch(0.98 0.005 260);
-  --popover: oklch(0.1 0.015 260);
-  --popover-foreground: oklch(0.98 0.005 260);
+  --background: oklch(0.1 0.01 260); 
+  --foreground: oklch(0.97 0.005 60);
+  --card: oklch(0.15 0.015 260);
+  --card-foreground: oklch(0.97 0.005 60);
 
-  /* Primary: Brighter Electric Violet */
-  --primary: oklch(0.7 0.3 280);
-  --primary-foreground: oklch(0.05 0.01 260);
+  --primary: oklch(0.65 0.22 260);
+  --primary-foreground: oklch(0.1 0.01 260);
 
-  /* Secondary: Brighter Lime Green */
-  --secondary: oklch(0.85 0.25 145);
-  --secondary-foreground: oklch(0.05 0.01 260);
+  --secondary: oklch(0.7 0.22 145);
+  --secondary-foreground: oklch(0.1 0.01 145);
 
-  /* Accent: Brighter Hot Pink */
-  --accent: oklch(0.75 0.3 330);
-  --accent-foreground: oklch(0.05 0.01 260);
+  --accent: oklch(0.75 0.25 50);
+  --accent-foreground: oklch(0.1 0.01 50);
 
-  --muted: oklch(0.2 0.015 260);
-  --muted-foreground: oklch(0.7 0.01 260);
-  --destructive: oklch(0.7 0.28 25);
-  --destructive-foreground: oklch(0.98 0.005 260);
-  --border: oklch(0.15 0.015 260);
-  --input: oklch(0.12 0.015 260);
-  --ring: oklch(0.7 0.3 280 / 0.5);
-
-  --chart-1: oklch(0.7 0.3 280);
-  --chart-2: oklch(0.85 0.25 145);
-  --chart-3: oklch(0.75 0.3 330);
-  --chart-4: oklch(0.8 0.28 210);
-  --chart-5: oklch(0.85 0.25 50);
+  --muted: oklch(0.2 0.01 260);
+  --muted-foreground: oklch(0.7 0.01 60);
+  --border: oklch(0.2 0.015 260);
+  --input: oklch(0.18 0.015 260);
+  --ring: oklch(0.65 0.22 260 / 0.6);
 }
+
 
 @theme inline {
   --font-sans: "Geist", "Geist Fallback";
@@ -99,23 +79,10 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
@@ -127,40 +94,36 @@
   }
 }
 
-/* Animations and effects - kept for premium feel */
 @layer utilities {
-  .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  @keyframes background-pan {
+    from { background-position: 0% center; }
+    to { background-position: -200% center; }
   }
 
-  .dark .glass {
-    background: oklch(0.1 0.015 260 / 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid oklch(1 0 0 / 0.1);
+  .animated-gradient-bg {
+    background: linear-gradient(90deg, oklch(0.98 0.005 60), oklch(0.96 0.01 145), oklch(0.97 0.01 50), oklch(0.98 0.005 60));
+    background-size: 200%;
+    animation: background-pan 25s linear infinite;
   }
 
-  .card-premium {
-    @apply rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm shadow-lg transition-all duration-300;
+  .dark .animated-gradient-bg {
+    background: linear-gradient(90deg, oklch(0.1 0.01 260), oklch(0.12 0.02 145), oklch(0.12 0.02 50), oklch(0.1 0.01 260));
+    background-size: 200%;
+    animation: background-pan 25s linear infinite;
   }
 
-  .card-premium:hover {
-    @apply shadow-2xl border-primary/30;
+  /* Enhanced card hover effect */
+  .card-hover-effect {
+    @apply transition-all duration-300 ease-in-out;
   }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-
-  @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 15px oklch(var(--primary) / 0.3); }
-    50% { box-shadow: 0 0 40px oklch(var(--primary) / 0.6); }
+  .card-hover-effect:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px oklch(var(--primary) / 0.15), 0 0 15px oklch(var(--accent) / 0.1);
+    border-color: oklch(var(--primary) / 0.3);
   }
 
   @keyframes slide-up {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -170,32 +133,21 @@
   }
   
   .animate-text-gradient {
-    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent;
     background-size: 200% auto;
     animation: text-gradient-shift 4s linear infinite;
   }
 
-  .animate-float { animation: float 4s ease-in-out infinite; }
-  .animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
   .animate-slide-up { animation: slide-up 0.7s ease-out forwards; }
 
-  .card-hover-lift {
-    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  .card-hover-lift:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 20px 40px oklch(var(--primary) / 0.1);
-  }
-
   .btn-glow:hover {
-    box-shadow: 0 0 20px oklch(var(--accent) / 0.4), inset 0 0 15px oklch(var(--accent) / 0.1);
+    box-shadow: 0 0 20px oklch(var(--accent) / 0.5);
   }
 
   .stagger-item {
     animation: slide-up 0.7s ease-out backwards;
   }
   
-  /* Stagger delays */
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
   .stagger-3 { animation-delay: 0.3s; }
