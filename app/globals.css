@@ -1,101 +1,80 @@
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Modern premium color palette with sophisticated gradients */
-  --background: oklch(0.98 0 0);
-  --foreground: oklch(0.12 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.12 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0 0);
+  /* Gen Z-inspired vibrant, aesthetic, and minimalistic theme */
+  --background: oklch(0.99 0.005 240); /* Very light, almost white with a hint of cool gray */
+  --foreground: oklch(0.08 0.01 240); /* Near-black for high contrast */
+  --card: oklch(1 0 0); /* Pure white for cards */
+  --card-foreground: oklch(0.08 0.01 240);
 
-  /* Primary: Deep Electric Blue - premium and professional */
-  --primary: oklch(0.5 0.3 264);
-  --primary-foreground: oklch(0.98 0 0);
+  /* Primary: Electric Violet - bold, energetic, and modern */
+  --primary: oklch(0.6 0.3 280);
+  --primary-foreground: oklch(0.99 0.005 240);
 
-  /* Secondary: Teal - sophisticated and modern */
-  --secondary: oklch(0.62 0.22 200);
-  --secondary-foreground: oklch(0.98 0 0);
+  /* Secondary: Bright Lime Green - vibrant and playful */
+  --secondary: oklch(0.8 0.25 145);
+  --secondary-foreground: oklch(0.08 0.01 240);
 
-  /* Accent: Vibrant Coral - energetic pop */
-  --accent: oklch(0.63 0.28 25);
-  --accent-foreground: oklch(0.98 0 0);
+  /* Accent: Hot Pink - a high-energy pop for CTAs */
+  --accent: oklch(0.7 0.3 330);
+  --accent-foreground: oklch(0.08 0.01 240);
 
-  --muted: oklch(0.92 0.01 0);
-  --muted-foreground: oklch(0.55 0 0);
-  --destructive: oklch(0.63 0.28 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.85 0.02 0);
-  --input: oklch(0.96 0.01 0);
-  --ring: oklch(0.5 0.3 264);
+  --muted: oklch(0.95 0.005 240);
+  --muted-foreground: oklch(0.4 0.01 240);
+  --destructive: oklch(0.65 0.28 25);
+  --destructive-foreground: oklch(0.99 0.005 240);
+  --border: oklch(0.9 0.01 240);
+  --input: oklch(0.97 0.005 240);
+  --ring: oklch(0.6 0.3 280 / 0.5);
 
-  /* Chart colors - modern palette */
-  --chart-1: oklch(0.5 0.3 264);
-  --chart-2: oklch(0.63 0.28 25);
-  --chart-3: oklch(0.62 0.22 200);
-  --chart-4: oklch(0.58 0.25 45);
-  --chart-5: oklch(0.48 0.22 310);
+  /* Chart colors - vibrant and distinct */
+  --chart-1: oklch(0.6 0.3 280);   /* Electric Violet */
+  --chart-2: oklch(0.8 0.25 145);   /* Bright Lime Green */
+  --chart-3: oklch(0.7 0.3 330);   /* Hot Pink */
+  --chart-4: oklch(0.75 0.28 210);  /* Sky Blue */
+  --chart-5: oklch(0.8 0.25 50);    /* Bright Orange */
 
-  --radius: 0.75rem;
-
-  /* Sidebar modern theme */
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.12 0 0);
-  --sidebar-primary: oklch(0.5 0.3 264);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.63 0.28 25);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.85 0.02 0);
-  --sidebar-ring: oklch(0.5 0.3 264);
+  --radius: 0.8rem; /* Slightly more rounded corners for a softer feel */
 }
 
 .dark {
-  /* Dark mode with premium glassmorphism support */
-  --background: oklch(0.1 0 0);
-  --foreground: oklch(0.96 0 0);
-  --card: oklch(0.16 0.01 264);
-  --card-foreground: oklch(0.96 0 0);
-  --popover: oklch(0.16 0.01 264);
-  --popover-foreground: oklch(0.96 0 0);
+  /* Dark mode: Deep space with vibrant highlights */
+  --background: oklch(0.05 0.01 260); /* Deep, dark purple-blue */
+  --foreground: oklch(0.98 0.005 260); /* Light, almost white */
+  --card: oklch(0.1 0.015 260);
+  --card-foreground: oklch(0.98 0.005 260);
+  --popover: oklch(0.1 0.015 260);
+  --popover-foreground: oklch(0.98 0.005 260);
 
-  /* Primary: Bright Electric Blue */
-  --primary: oklch(0.68 0.28 264);
-  --primary-foreground: oklch(0.1 0 0);
+  /* Primary: Brighter Electric Violet */
+  --primary: oklch(0.7 0.3 280);
+  --primary-foreground: oklch(0.05 0.01 260);
 
-  /* Secondary: Bright Teal */
-  --secondary: oklch(0.7 0.2 200);
-  --secondary-foreground: oklch(0.1 0 0);
+  /* Secondary: Brighter Lime Green */
+  --secondary: oklch(0.85 0.25 145);
+  --secondary-foreground: oklch(0.05 0.01 260);
 
-  /* Accent: Bright Coral */
-  --accent: oklch(0.7 0.26 25);
-  --accent-foreground: oklch(0.1 0 0);
+  /* Accent: Brighter Hot Pink */
+  --accent: oklch(0.75 0.3 330);
+  --accent-foreground: oklch(0.05 0.01 260);
 
-  --muted: oklch(0.28 0.01 0);
-  --muted-foreground: oklch(0.72 0 0);
-  --destructive: oklch(0.7 0.26 25);
-  --destructive-foreground: oklch(0.96 0 0);
-  --border: oklch(0.22 0.01 0);
-  --input: oklch(0.2 0.01 0);
-  --ring: oklch(0.68 0.28 264);
+  --muted: oklch(0.2 0.015 260);
+  --muted-foreground: oklch(0.7 0.01 260);
+  --destructive: oklch(0.7 0.28 25);
+  --destructive-foreground: oklch(0.98 0.005 260);
+  --border: oklch(0.15 0.015 260);
+  --input: oklch(0.12 0.015 260);
+  --ring: oklch(0.7 0.3 280 / 0.5);
 
-  /* Chart colors - vibrant for dark mode */
-  --chart-1: oklch(0.68 0.28 264);
-  --chart-2: oklch(0.7 0.26 25);
-  --chart-3: oklch(0.7 0.2 200);
-  --chart-4: oklch(0.62 0.23 45);
-  --chart-5: oklch(0.58 0.22 310);
-
-  --sidebar: oklch(0.14 0.01 264);
-  --sidebar-foreground: oklch(0.96 0 0);
-  --sidebar-primary: oklch(0.68 0.28 264);
-  --sidebar-primary-foreground: oklch(0.96 0 0);
-  --sidebar-accent: oklch(0.7 0.26 25);
-  --sidebar-accent-foreground: oklch(0.96 0 0);
-  --sidebar-border: oklch(0.22 0.01 0);
-  --sidebar-ring: oklch(0.68 0.28 264);
+  --chart-1: oklch(0.7 0.3 280);
+  --chart-2: oklch(0.85 0.25 145);
+  --chart-3: oklch(0.75 0.3 330);
+  --chart-4: oklch(0.8 0.28 210);
+  --chart-5: oklch(0.85 0.25 50);
 }
 
 @theme inline {
@@ -148,9 +127,8 @@
   }
 }
 
-/* Modern premium animations and glassmorphism effects */
+/* Animations and effects - kept for premium feel */
 @layer utilities {
-  /* Glassmorphism effect */
   .glass {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
@@ -158,12 +136,11 @@
   }
 
   .dark .glass {
-    background: rgba(20, 20, 30, 0.6);
+    background: oklch(0.1 0.015 260 / 0.6);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid oklch(1 0 0 / 0.1);
   }
 
-  /* Premium card with subtle depth */
   .card-premium {
     @apply rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm shadow-lg transition-all duration-300;
   }
@@ -171,214 +148,56 @@
   .card-premium:hover {
     @apply shadow-2xl border-primary/30;
   }
-
-  /* Floating animation - smooth and elegant */
+  
   @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-12px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
   }
 
-  /* Glow pulse animation */
   @keyframes glow-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 10px rgba(80, 150, 255, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(80, 150, 255, 0.6);
-    }
+    0%, 100% { box-shadow: 0 0 15px oklch(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 40px oklch(var(--primary) / 0.6); }
   }
 
-  /* Shimmer animation */
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  /* Slide up animation */
   @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Bounce in animation */
-  @keyframes bounce-in {
-    0% {
-      opacity: 0;
-      transform: scale(0.3);
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-    }
+  @keyframes text-gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  .animate-text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: text-gradient-shift 4s linear infinite;
   }
 
-  /* 3D flip animation */
-  @keyframes flip-3d {
-    0% {
-      transform: rotateY(0deg);
-    }
-    100% {
-      transform: rotateY(360deg);
-    }
-  }
+  .animate-float { animation: float 4s ease-in-out infinite; }
+  .animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+  .animate-slide-up { animation: slide-up 0.7s ease-out forwards; }
 
-  /* Gradient shift animation */
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  /* Utility classes for animations */
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
-
-  .animate-shimmer {
-    animation: shimmer 2s infinite;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    background-size: 1000px 100%;
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.6s ease-out;
-  }
-
-  .animate-bounce-in {
-    animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-
-  .animate-flip-3d {
-    animation: flip-3d 0.6s ease-in-out;
-    transform-style: preserve-3d;
-  }
-
-  .animate-gradient-shift {
-    animation: gradient-shift 3s ease infinite;
-    background-size: 200% 200%;
-  }
-
-  /* 3D hover effects */
-  .hover-3d {
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    transform-style: preserve-3d;
-  }
-
-  .hover-3d:hover {
-    transform: translateZ(20px) rotateX(5deg) rotateY(5deg);
-  }
-
-  /* Premium card hover effect with lift and glow */
   .card-hover-lift {
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    position: relative;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   }
-
   .card-hover-lift:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(80, 150, 255, 0.15), 0 0 30px rgba(99, 102, 241, 0.1);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 40px oklch(var(--primary) / 0.1);
   }
 
-  /* Gradient border animation */
-  .gradient-border {
-    position: relative;
-    background: linear-gradient(var(--background), var(--background)) padding-box,
-      linear-gradient(135deg, var(--primary), var(--accent)) border-box;
-    border: 2px solid transparent;
-  }
-
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .gradient-border:hover::before {
-    opacity: 1;
-  }
-
-  /* Icon pulse animation */
-  .icon-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  /* Smooth color transition */
-  .smooth-transition {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Button hover glow */
   .btn-glow:hover {
-    box-shadow: 0 0 25px rgba(80, 150, 255, 0.4), inset 0 0 20px rgba(80, 150, 255, 0.1);
+    box-shadow: 0 0 20px oklch(var(--accent) / 0.4), inset 0 0 15px oklch(var(--accent) / 0.1);
   }
 
-  /* Stagger animation for list items */
   .stagger-item {
-    animation: slide-up 0.6s ease-out backwards;
+    animation: slide-up 0.7s ease-out backwards;
   }
-
-  .stagger-item:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  .stagger-item:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  .stagger-item:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  .stagger-item:nth-child(4) {
-    animation-delay: 0.4s;
-  }
-  .stagger-item:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-  .stagger-item:nth-child(n + 6) {
-    animation-delay: 0.6s;
-  }
-
-  /* Premium input styles */
-  .input-premium {
-    @apply px-4 py-3 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20;
-  }
-
-  /* Premium badge */
-  .badge-premium {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20;
-  }
+  
+  /* Stagger delays */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
 }
