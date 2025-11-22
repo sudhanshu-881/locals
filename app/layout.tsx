@@ -36,7 +36,9 @@ export default function RootLayout({
         >
           <ReactQueryProvider>
             <StoreInitializer />
-            {children}
+            <main className="fade-in">
+              {children}
+            </main>
             <Analytics />
           </ReactQueryProvider>
         </ThemeProvider>
